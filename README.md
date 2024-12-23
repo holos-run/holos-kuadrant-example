@@ -177,8 +177,10 @@ could not run: could not render component: could not run command:
 > [!NOTE]
 > The error leads us to [kuadrant.io/authpolicy/v1/types_gen.cue:4337:14](https://github.com/holos-run/holos-kuadrant-example/blob/main/cue.mod/gen/kuadrant.io/authpolicy/v1/types_gen.cue#L4337)
 
-We see there's an intermediate field between the authorization and opa, it
-should look like `spec.rules.authorization.SOMETHING.opa.externalPolicy`
+> [!IMPORTANT]
+> We see `authorization: [string]: opa: {...}` indicating there's an
+> intermediate field between the `authorization` and `opa` fields. It should look
+> like `spec.rules.authorization.SOMETHING.opa.externalPolicy`.
 
 Try it out:
 

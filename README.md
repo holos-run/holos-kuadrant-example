@@ -174,6 +174,8 @@ could not run: could not render component: could not run command:
         exit status 1 at cli/render/render.go:171
 ```
 
+### Seeing the problem
+
 > [!NOTE]
 > The error leads us to [kuadrant.io/authpolicy/v1/types_gen.cue:4337:14](https://github.com/holos-run/holos-kuadrant-example/blob/main/cue.mod/gen/kuadrant.io/authpolicy/v1/types_gen.cue#L4337)
 

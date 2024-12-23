@@ -13,6 +13,8 @@ mkdir holos-kuadrant-example && cd holos-kuadrant-example
 holos init platform v1alpha5
 ```
 
+### Import the CRD
+
 Import the CRDs to validate against.
 
 ```bash
@@ -28,8 +30,10 @@ timoni mod vendor crds -f crds.yaml
 2:27PM INF schemas vendored: kuadrant.io/tlspolicy/v1
 ```
 
-Register the custom resource definition as a known resource type so Holos and
-CUE automatically validate against it.
+### Register AuthPolicy
+
+Register `AuthPolicy` as a known resource type so Holos and CUE automatically
+validate resources against the schema.
 
 ```
 cat <<EOF > kuadrant.cue
@@ -45,7 +49,9 @@ import authpolicy "kuadrant.io/authpolicy/v1"
 EOF
 ```
 
-Create a Holos component to manage the resources you'd like to manage:
+### Define a Holos Component
+
+Define a Holos component to manage the resources as you like.
 
 ```bash
 mkdir -p components/auth-policy
@@ -76,6 +82,8 @@ Component: #Kubernetes & {
 EOF
 ```
 
+### Add the Component
+
 Add the component to the platform:
 
 ```bash
@@ -92,6 +100,8 @@ Platform: Components: "auth-policy": {
 ```
 EOF
 ```
+
+### Render the Configuration
 
 Render the configuration (rendered manifests pattern)
 
@@ -120,6 +130,8 @@ spec:
     kind: SomeKind
     name: some-name
 ```
+
+### Verify against the Schema
 
 Verify the schema is being checked, try setting the `spec.opa` field as described.
 
@@ -162,9 +174,13 @@ could not run: could not render component: could not run command:
         exit status 1 at cli/render/render.go:171
 ```
 
-This takes us to [kuadrant.io/authpolicy/v1/types_gen.cue:4337:14](https://github.com/holos-run/holos-kuadrant-example/blob/main/cue.mod/gen/kuadrant.io/authpolicy/v1/types_gen.cue#L4337) where we see there's an intermediate field between authorization and opa, so it should look like `spec.rules.authorization.SOMETHING.opa.externalPolicy`
+> [!NOTE]
+> The error leads us to [kuadrant.io/authpolicy/v1/types_gen.cue:4337:14](https://github.com/holos-run/holos-kuadrant-example/blob/main/cue.mod/gen/kuadrant.io/authpolicy/v1/types_gen.cue#L4337)
 
-Try it out: 
+We see there's an intermediate field between the authorization and opa, it
+should look like `spec.rules.authorization.SOMETHING.opa.externalPolicy`
+
+Try it out:
 
 ```bash
 patch -p1 <<EOF
@@ -193,7 +209,9 @@ index ad460f5..6b2c410 100644
 EOF
 ```
 
-Now the schema is valid and it renders again:
+### Render the configs again
+
+Now the schema is valid and it renders again.
 
 ```bash
 holos render platform

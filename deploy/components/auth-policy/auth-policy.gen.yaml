@@ -4,6 +4,14 @@ metadata:
   name: example
   namespace: default
 spec:
+  rules:
+    authorization:
+      SOMETHING:
+        opa:
+          externalPolicy:
+            sharedSecretRef:
+              key: some-key
+              name: some-name
   targetRef:
     group: some-group
     kind: SomeKind

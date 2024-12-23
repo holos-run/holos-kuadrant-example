@@ -14,6 +14,12 @@ Component: #Kubernetes & {
 				group: "some-group"
 				name:  "some-name"
 			}
+			rules: authorization: SOMETHING: opa: externalPolicy: {
+				sharedSecretRef: {
+					name: "some-name"
+					key:  "some-key"
+				}
+			}
 		}
 	}
 }

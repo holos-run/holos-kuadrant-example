@@ -1,0 +1,10 @@
+apiVersion: kuadrant.io/v1
+kind: AuthPolicy
+metadata:
+  name: example
+  namespace: default
+spec:
+  targetRef:
+    group: some-group
+    kind: SomeKind
+    name: some-name

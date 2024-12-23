@@ -133,7 +133,9 @@ spec:
 
 ### Verify against the Schema
 
-Verify the schema is being checked, try setting the `spec.opa` field as described.
+Verify the schema is being checked, try setting the
+`"spec.rules.authorization.opa.externalPolicy"` field as indicated from the
+provided error message.
 
 ```bash
 patch -p1 <<EOF
